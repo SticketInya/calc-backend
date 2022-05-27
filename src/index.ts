@@ -1,11 +1,7 @@
 import express, { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import 'dotenv/config';
-
-interface SavedNum {
-    id: string;
-    number: number;
-}
+import { SavedNum } from './intrerfaces/SaveNumberInterface';
 
 const PORT = parseInt(process.env.PORT || '3000', 10);
 const app = express();
