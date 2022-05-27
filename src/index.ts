@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import 'dotenv/config';
+import cors from 'cors';
 import { SavedNum } from './intrerfaces/SaveNumberInterface';
 
 const PORT = parseInt(process.env.PORT || '3000', 10);
@@ -9,6 +10,7 @@ const allNumbers = [] as Array<SavedNum>;
 
 app.disable('x-powered-by');
 app.use(express.json());
+app.use(cors());
 
 //Return Saved Number - GET
 app.get('/:id', (req: Request, res: Response) => {
