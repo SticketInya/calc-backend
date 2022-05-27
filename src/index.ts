@@ -2,14 +2,27 @@ import express, { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import 'dotenv/config';
 
+interface SavedNum {
+    id: string;
+    number: number;
+}
+
 const PORT = parseInt(process.env.PORT || '3000', 10);
 const app = express();
-const allNumbers = [];
+const allNumbers = [] as Array<SavedNum>;
 
 app.disable('x-powered-by');
 app.use(express.json());
 
 //Return Saved Number - GET
+app.get('/:id', (req: Request, res: Response) => {
+    const { id } = req.params as { id: string };
+    const foundNumber = allNumbers.find((num) => num.id === id);
+    if (!foundNumber) {
+        return res.status(404).send({ error: 'number not found' });
+    }
+    return res.status(200).send(foundNumber);
+});
 
 //Save Posted Number - POST
 app.post('/save', (req: Request, res: Response) => {
